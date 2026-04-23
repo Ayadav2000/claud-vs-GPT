@@ -1,0 +1,326 @@
+import { useState, useEffect } from "react";
+
+const Badge = ({ children, color }) => (
+  <span style={{
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "6px",
+    padding: "4px 12px",
+    borderRadius: "100px",
+    fontSize: "11px",
+    fontWeight: "700",
+    letterSpacing: "0.08em",
+    textTransform: "uppercase",
+    background: color === "coral" ? "rgba(233,107,74,0.15)" : "rgba(16,185,129,0.15)",
+    color: color === "coral" ? "#E96B4A" : "#10B981",
+    border: `1px solid ${color === "coral" ? "rgba(233,107,74,0.3)" : "rgba(16,185,129,0.3)"}`,
+  }}>{children}</span>
+);
+
+const CheckItem = ({ title, desc, accent }) => (
+  <div style={{ display: "flex", gap: "12px", alignItems: "flex-start", marginBottom: "18px" }}>
+    <div style={{
+      width: "20px", height: "20px", borderRadius: "50%", flexShrink: 0, marginTop: "2px",
+      background: accent === "coral" ? "rgba(233,107,74,0.2)" : "rgba(16,185,129,0.2)",
+      display: "flex", alignItems: "center", justifyContent: "center",
+      border: `1.5px solid ${accent === "coral" ? "#E96B4A" : "#10B981"}`,
+    }}>
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+        <path d="M2 5l2.5 2.5L8 3" stroke={accent === "coral" ? "#E96B4A" : "#10B981"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </div>
+    <div>
+      <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: "700", fontSize: "14px", color: "#F0EDE8", marginBottom: "3px", letterSpacing: "0.01em" }}>{title}</div>
+      <div style={{ fontSize: "12px", color: "#8A8580", lineHeight: "1.5", fontFamily: "'Lato', sans-serif" }}>{desc}</div>
+    </div>
+  </div>
+);
+
+const Divider = () => (
+  <div style={{ width: "1px", background: "linear-gradient(to bottom, transparent, #2A2723 20%, #2A2723 80%, transparent)", margin: "0 8px" }} />
+);
+
+export default function App() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => { setTimeout(() => setVisible(true), 100); }, []);
+
+  return (
+    <div style={{
+      minHeight: "100vh",
+      background: "#0D0C0A",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "48px 24px",
+      fontFamily: "'Lato', sans-serif",
+      position: "relative",
+      overflow: "hidden",
+    }}>
+      {/* Ambient glows */}
+      <div style={{
+        position: "absolute", top: "-120px", left: "50%", transform: "translateX(-50%)",
+        width: "600px", height: "400px",
+        background: "radial-gradient(ellipse, rgba(233,107,74,0.06) 0%, transparent 70%)",
+        pointerEvents: "none",
+      }} />
+      <div style={{
+        position: "absolute", bottom: "-80px", left: "20%",
+        width: "400px", height: "300px",
+        background: "radial-gradient(ellipse, rgba(16,185,129,0.05) 0%, transparent 70%)",
+        pointerEvents: "none",
+      }} />
+      {/* Grain texture */}
+      <div style={{
+        position: "absolute", inset: 0, opacity: 0.025,
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+        pointerEvents: "none",
+      }} />
+
+      <div style={{
+        width: "100%", maxWidth: "780px",
+        opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(24px)",
+        transition: "all 0.8s cubic-bezier(0.16,1,0.3,1)",
+      }}>
+        {/* Header */}
+        <div style={{ textAlign: "center", marginBottom: "48px" }}>
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: "6px",
+            padding: "6px 16px", borderRadius: "100px", marginBottom: "24px",
+            background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)",
+            fontSize: "11px", letterSpacing: "0.12em", textTransform: "uppercase",
+            color: "#6B6760", fontWeight: "700",
+          }}>
+            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#E96B4A", display: "inline-block" }} />
+            AI Tool Comparison Guide
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "20px", marginBottom: "16px" }}>
+            {/* Claude logo mark */}
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <path d="M14 4 L14 24 M4 14 L24 14 M6.34 6.34 L21.66 21.66 M21.66 6.34 L6.34 21.66" stroke="#E96B4A" strokeWidth="2.5" strokeLinecap="round"/>
+              </svg>
+              <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "26px", fontWeight: "700", color: "#F0EDE8", letterSpacing: "-0.01em" }}>Claude</span>
+            </div>
+            <span style={{ fontSize: "13px", letterSpacing: "0.15em", textTransform: "uppercase", color: "#4A4845", fontWeight: "700" }}>vs</span>
+            {/* ChatGPT logo mark */}
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="11" stroke="#10B981" strokeWidth="2"/>
+                <path d="M9 14a5 5 0 0 1 10 0" stroke="#10B981" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+              <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "26px", fontWeight: "700", color: "#F0EDE8", letterSpacing: "-0.01em" }}>ChatGPT</span>
+            </div>
+          </div>
+
+          <p style={{ color: "#6B6760", fontSize: "13px", letterSpacing: "0.06em", textTransform: "uppercase", fontWeight: "600", marginBottom: "6px" }}>
+            Most people use them the same way.
+          </p>
+          <p style={{ color: "#E96B4A", fontSize: "14px", letterSpacing: "0.06em", textTransform: "uppercase", fontWeight: "800" }}>
+            That's the problem.
+          </p>
+        </div>
+
+        {/* Main Cards */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "0", marginBottom: "32px" }}>
+          {/* Claude Card */}
+          <div style={{
+            background: "linear-gradient(145deg, #161412 0%, #121110 100%)",
+            border: "1px solid #2A2723",
+            borderRadius: "16px 0 0 16px",
+            padding: "28px 28px 24px",
+            position: "relative",
+            overflow: "hidden",
+          }}>
+            <div style={{
+              position: "absolute", top: 0, left: 0, right: 0, height: "2px",
+              background: "linear-gradient(to right, transparent, #E96B4A, transparent)",
+            }} />
+            <div style={{ marginBottom: "24px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
+                <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
+                  <path d="M14 4 L14 24 M4 14 L24 14 M6.34 6.34 L21.66 21.66 M21.66 6.34 L6.34 21.66" stroke="#E96B4A" strokeWidth="2.5" strokeLinecap="round"/>
+                </svg>
+                <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "20px", fontWeight: "700", color: "#F0EDE8" }}>Claude</span>
+              </div>
+              <Badge color="coral">The Thinking Model</Badge>
+            </div>
+
+            <CheckItem accent="coral" title="Deeper Reasoning" desc="Handles layered, multi-step problems with nuance and rigor" />
+            <CheckItem accent="coral" title="Context Mastery" desc="Understands tone, brand voice, and complex instructions precisely" />
+            <CheckItem accent="coral" title="Structured Outputs" desc="Long-form, strategic, well-organized content by design" />
+            <CheckItem accent="coral" title="Systems & Workflows" desc="Plans, analyzes, and builds complex step-by-step processes" />
+
+            <div style={{
+              marginTop: "24px", padding: "12px 16px", borderRadius: "10px",
+              background: "rgba(233,107,74,0.07)", border: "1px solid rgba(233,107,74,0.18)",
+            }}>
+              <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.1em", color: "#E96B4A", fontWeight: "700", marginBottom: "4px" }}>Best For</div>
+              <div style={{ fontSize: "12.5px", color: "#B0ABA5", fontFamily: "'Lato', sans-serif", lineHeight: "1.5" }}>Strategy · Writing · Analysis · Building</div>
+            </div>
+          </div>
+
+          <Divider />
+
+          {/* ChatGPT Card */}
+          <div style={{
+            background: "linear-gradient(145deg, #161412 0%, #121110 100%)",
+            border: "1px solid #2A2723",
+            borderRadius: "0 16px 16px 0",
+            padding: "28px 28px 24px",
+            position: "relative",
+            overflow: "hidden",
+          }}>
+            <div style={{
+              position: "absolute", top: 0, left: 0, right: 0, height: "2px",
+              background: "linear-gradient(to right, transparent, #10B981, transparent)",
+            }} />
+            <div style={{ marginBottom: "24px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
+                <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
+                  <circle cx="14" cy="14" r="11" stroke="#10B981" strokeWidth="2"/>
+                  <path d="M9 14a5 5 0 0 1 10 0" stroke="#10B981" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+                <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "20px", fontWeight: "700", color: "#F0EDE8" }}>ChatGPT</span>
+              </div>
+              <Badge color="green">The Execution Model</Badge>
+            </div>
+
+            <CheckItem accent="green" title="Fast & Versatile" desc="Rapid-fire tasks, quick ideation, and broad coverage" />
+            <CheckItem accent="green" title="Simple Prompts" desc="Quick answers, clean summaries, and first drafts instantly" />
+            <CheckItem accent="green" title="Brainstorming" desc="Lists, angles, hooks, variations — volume at speed" />
+            <CheckItem accent="green" title="Everyday Tasks" desc="Handles a wide range of routine tasks efficiently" />
+
+            <div style={{
+              marginTop: "24px", padding: "12px 16px", borderRadius: "10px",
+              background: "rgba(16,185,129,0.07)", border: "1px solid rgba(16,185,129,0.18)",
+            }}>
+              <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.1em", color: "#10B981", fontWeight: "700", marginBottom: "4px" }}>Best For</div>
+              <div style={{ fontSize: "12.5px", color: "#B0ABA5", fontFamily: "'Lato', sans-serif", lineHeight: "1.5" }}>Speed · Ideas · Quick Outputs · Execution</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Insight Strip */}
+        <div style={{
+          background: "linear-gradient(135deg, #161412 0%, #131110 100%)",
+          border: "1px solid #2A2723",
+          borderRadius: "14px",
+          padding: "22px 28px",
+          marginBottom: "28px",
+          display: "grid",
+          gridTemplateColumns: "1fr 1px 1fr",
+          gap: "24px",
+          alignItems: "center",
+        }}>
+          <div style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+            <div style={{
+              width: "28px", height: "28px", borderRadius: "50%", flexShrink: 0,
+              background: "rgba(239,68,68,0.12)", border: "1.5px solid rgba(239,68,68,0.35)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+            }}>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M2 2l8 8M10 2l-8 8" stroke="#EF4444" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <div style={{ fontSize: "12px", fontWeight: "800", color: "#EF4444", marginBottom: "4px", letterSpacing: "0.04em" }}>The Mistake</div>
+              <div style={{ fontSize: "13px", color: "#8A8580", lineHeight: "1.5" }}>Using Claude like ChatGPT = average results, wasted potential.</div>
+            </div>
+          </div>
+
+          <div style={{ width: "1px", height: "100%", background: "#2A2723" }} />
+
+          <div style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+            <div style={{
+              width: "28px", height: "28px", borderRadius: "50%", flexShrink: 0,
+              background: "rgba(16,185,129,0.12)", border: "1.5px solid rgba(16,185,129,0.35)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+            }}>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M2 6l3 3 5-5" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <div style={{ fontSize: "12px", fontWeight: "800", color: "#10B981", marginBottom: "4px", letterSpacing: "0.04em" }}>The Shift</div>
+              <div style={{ fontSize: "13px", color: "#8A8580", lineHeight: "1.5" }}>ChatGPT for speed. Claude for depth. <strong style={{ color: "#F0EDE8" }}>Different AI, different approach.</strong></div>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA Banner */}
+        <div style={{
+          background: "linear-gradient(135deg, #1A1410 0%, #161210 100%)",
+          border: "1px solid rgba(233,107,74,0.2)",
+          borderRadius: "14px",
+          padding: "24px 28px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: "20px",
+          position: "relative",
+          overflow: "hidden",
+        }}>
+          <div style={{
+            position: "absolute", right: "-40px", top: "-40px",
+            width: "200px", height: "200px",
+            background: "radial-gradient(circle, rgba(233,107,74,0.08) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }} />
+          <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
+            {/* Book icon */}
+            <div style={{
+              width: "52px", height: "68px", borderRadius: "4px",
+              background: "linear-gradient(145deg, #1E1A16, #2A2218)",
+              border: "1px solid rgba(233,107,74,0.3)",
+              display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+              boxShadow: "4px 4px 16px rgba(0,0,0,0.4)",
+            }}>
+              <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
+                <path d="M14 4 L14 24 M4 14 L24 14 M6.34 6.34 L21.66 21.66 M21.66 6.34 L6.34 21.66" stroke="#E96B4A" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <div style={{ fontSize: "11px", color: "#6B6760", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: "700", marginBottom: "4px" }}>Introducing</div>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "18px", fontWeight: "700", color: "#F0EDE8", marginBottom: "8px" }}>
+                Claude <span style={{ color: "#E96B4A" }}>Mastery</span> Guide
+              </div>
+              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                {["2000+ AI Prompts", "Prompts Built for Claude", "Strategy Frameworks"].map(t => (
+                  <span key={t} style={{
+                    fontSize: "10px", padding: "3px 10px", borderRadius: "100px",
+                    background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)",
+                    color: "#8A8580", fontWeight: "600", letterSpacing: "0.05em",
+                  }}>{t}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div style={{ textAlign: "right", flexShrink: 0 }}>
+            <div style={{ fontSize: "12px", color: "#6B6760", marginBottom: "6px" }}>Comment <strong style={{ color: "#E96B4A" }}>"CLAUDE"</strong> to get it</div>
+            <div style={{
+              display: "inline-block", padding: "10px 20px", borderRadius: "8px",
+              background: "linear-gradient(135deg, #E96B4A, #D4533A)",
+              fontSize: "13px", fontWeight: "800", color: "#FFF",
+              letterSpacing: "0.06em", textTransform: "uppercase",
+              boxShadow: "0 4px 20px rgba(233,107,74,0.3)",
+            }}>
+              Get it Free →
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div style={{ textAlign: "center", marginTop: "28px" }}>
+          <p style={{ fontSize: "11px", color: "#3A3835", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+            Different AI · Different Approach · Way Better Results
+          </p>
+        </div>
+      </div>
+
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Lato:wght@400;700;800&display=swap');
+      `}</style>
+    </div>
+  );
+}
