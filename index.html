@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Mastery — Claude vs ChatGPT vs Gemini | The Definitive Guide</title>
+<meta name="description" content="The complete AI comparison guide. Claude vs ChatGPT vs Gemini — task routing, prompting mistakes, and 2,000+ prompts.">
+
+<!-- ═══ OG / SOCIAL META ═══ -->
+<meta property="og:title" content="AI Mastery — Claude vs ChatGPT vs Gemini">
+<meta property="og:description" content="The definitive AI comparison guide. Task routing, prompt mistakes, and 2,000+ prompts. 100% free.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aimastery.netlify.app/">
+<meta property="og:image" content="https://aimastery.netlify.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="AI Mastery">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Mastery — Claude vs ChatGPT vs Gemini">
+<meta name="twitter:description" content="Stop using AI wrong. The complete comparison guide + 2,000 free prompts.">
+<meta name="twitter:image" content="https://aimastery.netlify.app/og-image.png">
+
+<!-- ═══ FAVICON ═══ -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+
+<!-- ═══ FONTS ═══ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,900&family=Fraunces:ital,wght@0,900;1,700;1,900&family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+
+<!-- ═══ GOOGLE ANALYTICS (GA4) ═══
+     IMPORTANT: Replace G-XXXXXXXXXX with your real GA4 Measurement ID
+     Get it at: https://analytics.google.com → Admin → Data Streams → Web → Measurement ID
+-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+
+  // Track key conversion events
+  function trackEvent(name, params) {
+    if (typeof gtag !== 'undefined') gtag('event', name, params || {});
+  }
+</script>
+
+<style>
+/* ═══════════════════════════════════════════════════
+   RESET & ROOT
+═══════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --coral: #E96B4A; --coral-dim: rgba(233,107,74,0.1); --coral-border: rgba(233,107,74,0.25);
+  --green: #10B981; --green-dim: rgba(16,185,129,0.08); --green-border: rgba(16,185,129,0.25);
+  --purple: #7B3FA0; --blue: #1B3A6B; --red: #FF3D5A;
+  --bg: #090806; --bg2: #0E0C0A; --bg3: #131110; --bg4: #161412;
+  --card: #121008; --border: rgba(255,255,255,0.055); --border2: rgba(255,255,255,0.1);
+  --text: #F0EDE8; --text2: #9A9590; --text3: #5A5550; --text4: #3A3530;
+  --gold: #C9A96E; --cream: #F5F1EB;
+}
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; overflow-x: hidden; line-height: 1.6; }
+
+/* ═══════════════════════════════════════════════════
+   CANVAS & OVERLAYS
+═══════════════════════════════════════════════════ */
+#canvas { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.noise {
+  position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.022;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ═══════════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  padding: 0 40px; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(9,8,6,0.75); backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.4s, border-color 0.4s;
+}
+nav.scrolled { background: rgba(9,8,6,0.97); border-color: var(--border2); }
+.nav-brand { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
+.nav-brand span { color: var(--coral); }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a { font-size: 13px; font-weight: 500; color: var(--text2); text-decoration: none; letter-spacing: 0.01em; transition: color 0.2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  padding: 9px 22px; background: var(--coral); border-radius: 8px;
+  font-size: 12px; font-weight: 700; color: #fff !important; text-decoration: none;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  box-shadow: 0 4px 20px rgba(233,107,74,0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(233,107,74,0.4); }
+.nav-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--coral); display: inline-block; margin-right: 8px; animation: pulse 2s infinite; }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--text2); border-radius: 1px; transition: all 0.3s; }
+
+/* ═══════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════ */
+.hero {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  padding: 120px 40px 100px; text-align: center; position: relative; z-index: 2;
+  overflow: hidden;
+}
+.hero-glow { position: absolute; pointer-events: none; border-radius: 50%; }
+.hero-glow-1 { width: 700px; height: 700px; top: -20%; left: -15%; background: radial-gradient(circle, rgba(233,107,74,0.07) 0%, transparent 65%); animation: gFloat 10s ease-in-out infinite alternate; }
+.hero-glow-2 { width: 600px; height: 600px; top: 10%; right: -15%; background: radial-gradient(circle, rgba(16,185,129,0.05) 0%, transparent 65%); animation: gFloat 12s ease-in-out infinite alternate-reverse; }
+.hero-glow-3 { width: 400px; height: 400px; bottom: 0; left: 35%; background: radial-gradient(circle, rgba(123,63,160,0.04) 0%, transparent 65%); animation: gFloat 8s ease-in-out infinite alternate; }
+.hero-inner { max-width: 820px; position: relative; z-index: 2; }
+.hero-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 18px; border-radius: 100px; margin-bottom: 40px;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border2);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3);
+  opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.15s forwards;
+}
+.hero-tag { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 100px; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.tag-coral { background: var(--coral-dim); border: 1px solid var(--coral-border); color: var(--coral); }
+.tag-green { background: var(--green-dim); border: 1px solid var(--green-border); color: var(--green); }
+.tag-purple { background: rgba(123,63,160,0.1); border: 1px solid rgba(123,63,160,0.25); color: #9B6FC0; }
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(58px, 9vw, 108px); font-weight: 900; line-height: 0.92;
+  letter-spacing: -0.03em; color: var(--text); margin-bottom: 0;
+  opacity: 0; animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
+}
+.hero-title .coral { color: var(--coral); }
+.hero-title .green { color: var(--green); }
+.hero-title .vs { font-size: 0.28em; display: block; color: var(--text3); letter-spacing: 0.35em; text-transform: uppercase; margin: 14px 0; font-weight: 700; }
+.hero-title em { font-style: italic; }
+.hero-sub {
+  font-size: 17px; color: var(--text2); max-width: 520px; margin: 32px auto 0;
+  line-height: 1.75; opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.55s forwards;
+}
+.hero-sub strong { color: var(--coral); font-weight: 600; }
+.hero-actions {
+  display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 44px;
+  flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.7s forwards;
+}
+.btn-p { padding: 15px 36px; background: linear-gradient(135deg, var(--coral), #C4572D); color: #fff; border: none; border-radius: 10px; font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; box-shadow: 0 8px 40px rgba(233,107,74,0.35); transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; display: inline-block; }
+.btn-p:hover { transform: translateY(-2px); box-shadow: 0 14px 48px rgba(233,107,74,0.45); color: #fff; }
+.btn-g { padding: 15px 30px; background: transparent; color: var(--text2); border: 1px solid var(--border2); border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: border-color 0.2s, color 0.2s; text-decoration: none; display: inline-block; }
+.btn-g:hover { border-color: var(--border2); color: var(--text); }
+.hero-tags { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 28px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.85s forwards; }
+.scroll-hint { position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--text3); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; animation: fadeUp 1s 1.3s forwards; opacity: 0; }
+.scroll-bar { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--coral), transparent); animation: scrollDrop 2.2s ease-in-out infinite; }
+
+/* ═══════════════════════════════════════════════════
+   STATS TICKER
+═══════════════════════════════════════════════════ */
+.ticker { background: var(--bg3); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 0; overflow: hidden; position: relative; z-index: 2; }
+.ticker-track { display: flex; white-space: nowrap; animation: ticker 30s linear infinite; }
+.ticker-item { display: inline-flex; align-items: center; gap: 10px; padding: 14px 40px; font-size: 12px; color: var(--text3); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; flex-shrink: 0; }
+.ticker-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--coral); }
+
+/* ═══════════════════════════════════════════════════
+   SHARED LAYOUT
+═══════════════════════════════════════════════════ */
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 2; }
+section { position: relative; z-index: 2; }
+.section-head { margin-bottom: 56px; }
+.section-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text3); margin-bottom: 14px; }
+.eyebrow-line { width: 28px; height: 1px; background: var(--coral); }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(34px, 4.5vw, 56px); font-weight: 900; line-height: 1.08; letter-spacing: -0.025em; }
+.section-title em { font-style: italic; color: var(--coral); }
+.section-desc { font-size: 15px; color: var(--text2); max-width: 500px; line-height: 1.75; margin-top: 14px; }
+hr.divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1); }
+.reveal.in { opacity: 1; transform: none; }
+.d1 { transition-delay: 0.08s; } .d2 { transition-delay: 0.16s; } .d3 { transition-delay: 0.24s; } .d4 { transition-delay: 0.32s; } .d5 { transition-delay: 0.40s; }
+
+/* ═══════════════════════════════════════════════════
+   SECTION 1 — CLAUDE VS CHATGPT
+═══════════════════════════════════════════════════ */
+#sec1 { padding: 110px 0; background: var(--bg); }
+.compare-wrap { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; background: var(--bg3); }
+.c-card { padding: 42px 38px; position: relative; overflow: hidden; background: var(--bg2); transition: background 0.4s; }
+.c-card:hover { background: #171412; }
+.c-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+.c-card.coral::before { background: linear-gradient(to right, transparent, var(--coral), transparent); }
+.c-card.green::before { background: linear-gradient(to right, transparent, var(--green), transparent); }
+.c-glow { position: absolute; width: 320px; height: 320px; border-radius: 50%; pointer-events: none; opacity: 0; transition: opacity 0.5s; top: -120px; }
+.c-card.coral .c-glow { background: radial-gradient(circle, rgba(233,107,74,0.08), transparent); right: -100px; }
+.c-card.green .c-glow { background: radial-gradient(circle, rgba(16,185,129,0.07), transparent); left: -100px; }
+.c-card:hover .c-glow { opacity: 1; }
+.c-divider { width: 1px; background: linear-gradient(to bottom, transparent, var(--border) 15%, var(--border) 85%, transparent); }
+.c-header { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+.c-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.c-icon.coral { background: var(--coral-dim); border: 1px solid var(--coral-border); }
+.c-icon.green { background: var(--green-dim); border: 1px solid var(--green-border); }
+.c-name { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 800; }
+.fi { display: flex; gap: 14px; align-items: flex-start; padding: 13px 0; border-bottom: 1px solid var(--border); }
+.fi:last-child { border-bottom: none; }
+.fi-dot { width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+.fi:hover .fi-dot { transform: scale(1.1); }
+.fi-dot.coral { background: var(--coral-dim); border: 1.5px solid rgba(233,107,74,0.4); }
+.fi-dot.green { background: var(--green-dim); border: 1.5px solid rgba(16,185,129,0.4); }
+.fi-title { font-weight: 600; font-size: 14px; color: var(--text); margin-bottom: 3px; }
+.fi-desc { font-size: 12px; color: var(--text2); line-height: 1.5; }
+.best-box { margin-top: 26px; padding: 16px 18px; border-radius: 12px; }
+.best-box.coral { background: rgba(233,107,74,0.06); border: 1px solid rgba(233,107,74,0.14); }
+.best-box.green { background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.14); }
+.best-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+.best-label.coral { color: var(--coral); } .best-label.green { color: var(--green); }
+.best-text { font-size: 13px; color: #9A9590; line-height: 1.5; }
+.insight-bar { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0; background: var(--bg3); border: 1px solid var(--border); border-radius: 18px; margin-top: 32px; overflow: hidden; position: relative; }
+.insight-bar::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 110%, rgba(233,107,74,0.04), transparent 55%); pointer-events: none; }
+.ib-cell { padding: 28px 36px; display: flex; gap: 16px; align-items: flex-start; }
+.ib-icon { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.ib-label { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 5px; }
+.ib-text { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+/* ═══════════════════════════════════════════════════
+   SECTION 2 — TASK CHEATSHEET
+═══════════════════════════════════════════════════ */
+#sec2 { padding: 110px 0; background: var(--bg2); }
+.task-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 52px; }
+.task-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 20px; transition: all 0.25s ease; cursor: default; position: relative; overflow: hidden; }
+.task-card:hover { background: #191614; transform: translateY(-2px); }
+.task-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+.task-icon { font-size: 22px; margin-bottom: 6px; }
+.task-name { font-size: 13.5px; font-weight: 600; color: var(--text); margin-bottom: 3px; line-height: 1.3; }
+.task-why { font-size: 11px; color: var(--text2); font-style: italic; }
+.task-winner { padding: 5px 11px; border-radius: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; flex-shrink: 0; margin-left: 10px; }
+.tw-coral { background: var(--coral-dim); border: 1px solid var(--coral-border); color: var(--coral); }
+.tw-green { background: var(--green-dim); border: 1px solid var(--green-border); color: var(--green); }
+.tw-purple { background: rgba(123,63,160,0.1); border: 1px solid rgba(123,63,160,0.25); color: #9B6FC0; }
+.bar-row { margin-bottom: 5px; border-top: 1px solid var(--border); padding-top: 12px; }
+.bar-line { margin-bottom: 5px; }
+.bar-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; }
+.bar-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 600; color: var(--text3); letter-spacing: 0.06em; }
+.bar-val { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; }
+.bar-track { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 2px; transition: width 1.2s cubic-bezier(0.16,1,0.3,1); }
+.ai-summary { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border-radius: 16px; overflow: hidden; border: 1px solid var(--border); margin-top: 32px; }
+.ai-sum-cell { background: var(--bg2); padding: 28px 24px; }
+.ai-sum-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+.ai-sum-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
+.ai-sum-wins { font-size: 40px; font-weight: 900; line-height: 1; margin-bottom: 14px; font-family: 'Playfair Display', serif; }
+.ai-sum-wins span { color: var(--text3); font-size: 0.55em; }
+.ai-sum-item { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; font-size: 11.5px; color: var(--text2); }
+.ai-sum-dot { width: 3px; height: 3px; border-radius: 50%; flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════════════
+   SECTION 3 — CLAUDE VS GEMINI
+═══════════════════════════════════════════════════ */
+#sec3 { padding: 110px 0; background: var(--bg); }
+.gemini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
+.gem-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 28px; position: relative; overflow: hidden; }
+.gem-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+.gem-card.blue::before { background: linear-gradient(to right, transparent, #4A7FD4, transparent); }
+.gem-card.purple::before { background: linear-gradient(to right, transparent, #9B6FC0, transparent); }
+.gem-name { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+.gem-sub { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; margin-bottom: 18px; }
+.gem-trait { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; font-size: 13px; color: var(--text); }
+.gem-trait-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.gem-verdict { padding: 12px 16px; border-radius: 8px; font-size: 12px; color: var(--text2); line-height: 1.6; font-style: italic; margin-top: 16px; }
+.gem-verdict.blue { background: rgba(27,58,107,0.15); border-left: 3px solid #4A7FD4; }
+.gem-verdict.purple { background: rgba(123,63,160,0.12); border-left: 3px solid #9B6FC0; }
+.compare-table { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; font-size: 13px; }
+.ct-thead { background: var(--bg3); }
+.ct-th { padding: 14px 20px; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; text-align: left; color: var(--text3); border-bottom: 1px solid var(--border); }
+.ct-th:not(:last-child) { border-right: 1px solid var(--border); }
+.ct-td { padding: 14px 20px; color: var(--text2); vertical-align: middle; }
+.ct-td:not(:last-child) { border-right: 1px solid var(--border); }
+.ct-row:not(:last-child) .ct-td { border-bottom: 1px solid var(--border); }
+.ct-row:hover .ct-td { background: rgba(255,255,255,0.015); }
+.ct-task { color: var(--text); font-weight: 500; }
+.ct-arrow-b { color: #4A7FD4; font-weight: 700; margin-right: 5px; }
+.ct-arrow-p { color: #9B6FC0; font-weight: 700; margin-right: 5px; }
+.pick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
+.pick-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
+.pick-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; font-style: italic; margin-bottom: 16px; }
+.pick-item { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; font-size: 13px; color: var(--text); }
+.pick-check { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+
+/* ═══════════════════════════════════════════════════
+   SECTION 4 — AI MISTAKES
+═══════════════════════════════════════════════════ */
+#sec4 { padding: 110px 0; background: var(--cream); }
+#sec4 .section-title { color: #0D0C0A; }
+#sec4 .section-desc { color: #666; }
+#sec4 .section-eyebrow { color: #888; }
+.mistakes-list { display: flex; flex-direction: column; gap: 2px; margin-top: 52px; }
+.mistake-item { background: #fff; border: 1px solid #E0DCD6; padding: 0; cursor: pointer; overflow: hidden; transition: all 0.35s cubic-bezier(0.16,1,0.3,1); }
+.mistake-item.active { background: #0D0C0A; border-color: #0D0C0A; }
+.mistake-head { display: flex; align-items: flex-start; gap: 20px; padding: 20px 26px; }
+.mistake-no { font-family: 'Syne', sans-serif; font-size: 38px; font-weight: 800; color: #E0DCD6; line-height: 1; flex-shrink: 0; transition: color 0.3s; }
+.mistake-item.active .mistake-no { color: #E96B4A; }
+.mistake-wrong { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: #0D0C0A; text-decoration: line-through; text-decoration-color: #FF3D5A; text-decoration-thickness: 2px; margin-bottom: 4px; transition: color 0.3s; }
+.mistake-item.active .mistake-wrong { color: #fff; }
+.mistake-hint { font-size: 12px; color: #888; font-style: italic; transition: opacity 0.3s; }
+.mistake-item.active .mistake-hint { opacity: 0; height: 0; overflow: hidden; }
+.mistake-tagbadge { font-size: 9px; padding: 2px 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; font-family: 'Syne', sans-serif; flex-shrink: 0; margin-left: auto; margin-top: 2px; }
+.mistake-body { padding: 0 26px 0 84px; max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1), padding 0.3s; }
+.mistake-item.active .mistake-body { max-height: 200px; padding-bottom: 24px; }
+.mistake-accentline { position: absolute; left: 0; top: 0; bottom: 0; width: 3px; display: none; }
+.mistake-item.active .mistake-accentline { display: block; }
+.mistake-fix-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px; }
+.mistake-fix-icon { width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+.mistake-fix-text { font-size: 14px; color: #9A9590; line-height: 1.65; }
+.mistake-fix-text strong { color: #fff; font-weight: 600; }
+.mistake-gain { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; }
+.mistakes-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: #E0DCD6; border-radius: 12px; overflow: hidden; margin-top: 32px; }
+.mstat { background: #0D0C0A; padding: 24px 20px; }
+.mstat-num { font-family: 'Syne', sans-serif; font-size: 44px; font-weight: 800; color: #FF3D5A; line-height: 1; margin-bottom: 8px; }
+.mstat-label { font-size: 12px; color: #555; line-height: 1.5; }
+
+/* ═══════════════════════════════════════════════════
+   SECTION 5 — MASTERY GUIDE
+═══════════════════════════════════════════════════ */
+#sec5 { padding: 0; background: var(--bg); }
+.guide-topbar { background: #1A1410; padding: 12px 40px; text-align: center; font-size: 13px; color: #6A6058; border-bottom: 1px solid var(--border); }
+.guide-topbar strong { color: var(--coral); }
+.guide-hero { padding: 90px 40px 72px; max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: center; }
+.guide-eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: var(--coral-dim); border: 1px solid var(--coral-border); border-radius: 4px; margin-bottom: 24px; }
+.guide-eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--coral); }
+.guide-eyebrow-text { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral); }
+.guide-h1 { font-family: 'Fraunces', serif; font-size: clamp(42px, 6vw, 72px); font-weight: 900; line-height: 1.02; letter-spacing: -0.03em; color: var(--text); margin-bottom: 20px; }
+.guide-h1 em { color: var(--coral); font-style: italic; }
+.guide-desc { font-size: 15px; color: var(--text2); line-height: 1.75; max-width: 500px; margin-bottom: 32px; }
+.guide-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.guide-btn-p { padding: 15px 32px; background: #1A1410; color: #fff; font-weight: 800; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; box-shadow: 0 8px 32px rgba(0,0,0,0.3); border: 1px solid var(--border2); border-radius: 8px; transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; display: inline-block; }
+.guide-btn-p:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,0,0,0.4); color: #fff; }
+.guide-btn-s { padding: 15px 26px; border: 1.5px solid var(--border2); color: var(--text2); font-weight: 700; font-size: 13px; cursor: pointer; border-radius: 8px; transition: color 0.2s, border-color 0.2s; text-decoration: none; display: inline-block; }
+.guide-btn-s:hover { color: var(--text); border-color: var(--border2); }
+.book-mockup { width: 180px; height: 244px; flex-shrink: 0; background: linear-gradient(145deg, #1A1410 0%, #2A1E16 100%); border: 1px solid #3A2E26; border-radius: 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 20px; position: relative; box-shadow: 14px 14px 52px rgba(0,0,0,0.5), -4px -4px 16px rgba(255,255,255,0.03); animation: bookFloat 5s ease-in-out infinite alternate; }
+.book-spine { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--coral); border-radius: 4px 0 0 4px; }
+.book-top-line { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, var(--coral), transparent); }
+.book-title { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 900; color: var(--text); text-align: center; margin-top: 14px; margin-bottom: 6px; line-height: 1.1; }
+.book-title em { color: var(--coral); font-style: italic; }
+.book-sub { font-size: 10px; color: #6A6058; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; text-align: center; }
+.book-bottom { position: absolute; bottom: 16px; font-size: 10px; color: #4A3E36; letter-spacing: 0.06em; }
+.guide-stats { background: #1A1410; padding: 28px 40px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.guide-stats-inner { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 0; }
+.gs-cell { text-align: center; padding: 0 20px; }
+.gs-cell:not(:last-child) { border-right: 1px solid #2A2218; }
+.gs-num { font-family: 'Fraunces', serif; font-size: 34px; font-weight: 900; color: var(--coral); line-height: 1; margin-bottom: 6px; font-style: italic; }
+.gs-label { font-size: 11px; color: #6A6058; letter-spacing: 0.04em; }
+.guide-chapters { padding: 72px 40px; max-width: 980px; margin: 0 auto; }
+.chapters-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 40px; }
+.chapters-title { font-family: 'Fraunces', serif; font-size: 38px; font-weight: 900; color: var(--text); letter-spacing: -0.02em; font-style: italic; }
+.chapters-rule { flex: 1; height: 1px; background: var(--border); }
+.chapter-row { display: grid; grid-template-columns: 56px 1fr auto; gap: 24px; align-items: flex-start; padding: 22px 0; border-bottom: 1px solid var(--border); }
+.chapter-num { font-family: 'Fraunces', serif; font-size: 50px; font-weight: 900; color: var(--border); line-height: 1; font-style: italic; }
+.chapter-icon-title { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.chapter-title { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; color: var(--text); }
+.chapter-desc { font-size: 13.5px; color: var(--text2); line-height: 1.65; max-width: 480px; }
+.chapter-pages { padding: 4px 12px; background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; font-size: 11px; color: var(--text3); font-weight: 600; letter-spacing: 0.06em; white-space: nowrap; flex-shrink: 0; margin-top: 4px; }
+.guide-included { background: #1A1410; padding: 72px 40px; }
+.guide-included-inner { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.included-title { font-family: 'Fraunces', serif; font-size: 34px; font-weight: 900; color: var(--text); letter-spacing: -0.02em; font-style: italic; margin-bottom: 28px; }
+.included-item { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
+.included-check { width: 20px; height: 20px; flex-shrink: 0; background: rgba(233,107,74,0.15); border: 1px solid rgba(233,107,74,0.35); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+.included-text { font-size: 14px; color: #B0ABA5; line-height: 1.5; }
+.testi-wrap { position: relative; height: 180px; margin-bottom: 12px; }
+.testi-card { position: absolute; inset: 0; background: #221C16; border: 1px solid #3A2E26; padding: 28px; border-left: 3px solid var(--coral); border-radius: 8px; opacity: 0; transform: translateY(8px); transition: all 0.55s ease; pointer-events: none; }
+.testi-card.active { opacity: 1; transform: none; pointer-events: auto; }
+.testi-quote-mark { font-size: 36px; color: var(--coral); line-height: 1; margin-bottom: 8px; font-family: 'Fraunces', serif; }
+.testi-text { font-size: 13px; color: #8A8078; line-height: 1.7; font-style: italic; margin-bottom: 16px; }
+.testi-name { font-size: 12px; font-weight: 700; color: var(--text); }
+.testi-role { font-size: 11px; color: #4A4036; }
+.testi-dots { display: flex; gap: 6px; }
+.testi-dot { height: 6px; border-radius: 3px; cursor: pointer; transition: all 0.3s; background: #3A2E26; }
+.testi-dot.active { background: var(--coral); width: 24px !important; }
+.guide-cta { padding: 90px 40px; text-align: center; max-width: 700px; margin: 0 auto; }
+.guide-cta-h { font-family: 'Fraunces', serif; font-size: clamp(34px, 5vw, 54px); font-weight: 900; color: var(--text); letter-spacing: -0.03em; font-style: italic; margin-bottom: 16px; }
+.guide-cta-sub { font-size: 15px; color: var(--text2); margin-bottom: 36px; line-height: 1.7; }
+.guide-cta-rule { display: flex; align-items: center; gap: 16px; justify-content: center; margin-top: 36px; }
+.guide-cta-rule-line { width: 100px; height: 1px; background: var(--border); }
+.guide-cta-rule-text { font-size: 11px; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* ═══════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════ */
+footer { background: var(--bg); border-top: 1px solid var(--border); padding: 40px; position: relative; z-index: 2; }
+.footer-inner { max-width: 980px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.footer-brand { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 800; }
+.footer-brand span { color: var(--coral); }
+.footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
+.footer-links a { font-size: 12px; color: var(--text3); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--text2); }
+.footer-copy { font-size: 11px; color: var(--text4); letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* ═══════════════════════════════════════════════════
+   MODAL — UPGRADED WITH FORMSPREE
+═══════════════════════════════════════════════════ */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 500; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(8px); }
+.modal-overlay.open { opacity: 1; pointer-events: auto; }
+.modal-box { background: var(--bg3); border: 1px solid var(--border2); border-radius: 20px; padding: 48px; max-width: 500px; width: 100%; position: relative; transform: translateY(20px); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); }
+.modal-overlay.open .modal-box { transform: none; }
+.modal-close { position: absolute; top: 18px; right: 18px; width: 32px; height: 32px; border-radius: 50%; background: var(--bg2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text2); font-size: 16px; transition: background 0.2s; }
+.modal-close:hover { background: var(--bg4); }
+.modal-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+.modal-desc { font-size: 14px; color: var(--text2); line-height: 1.7; margin-bottom: 28px; }
+.modal-input { width: 100%; padding: 13px 16px; background: var(--bg2); border: 1px solid var(--border2); border-radius: 8px; color: var(--text); font-size: 14px; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.2s; margin-bottom: 12px; }
+.modal-input:focus { border-color: var(--coral); }
+.modal-input::placeholder { color: var(--text3); }
+.modal-submit { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--coral), #C4572D); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; box-shadow: 0 6px 24px rgba(233,107,74,0.3); transition: transform 0.2s; }
+.modal-submit:hover { transform: translateY(-1px); }
+.modal-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+.modal-note { font-size: 11px; color: var(--text3); text-align: center; margin-top: 12px; }
+.modal-error { font-size: 12px; color: #FF3D5A; margin-top: 8px; display: none; }
+.modal-success { text-align: center; display: none; }
+.modal-success-icon { font-size: 48px; margin-bottom: 16px; }
+.modal-success-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+.modal-success-text { font-size: 14px; color: var(--text2); line-height: 1.7; }
+
+/* ═══════════════════════════════════════════════════
+   KEYFRAMES
+═══════════════════════════════════════════════════ */
+@keyframes fadeUp { to { opacity: 1; transform: none; } }
+@keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.4; transform:scale(0.75); } }
+@keyframes scrollDrop { 0%,100% { transform:scaleY(0); transform-origin:top; } 40%,60% { transform:scaleY(1); transform-origin:top; } 40.01%,60.01% { transform:scaleY(1); transform-origin:bottom; } }
+@keyframes gFloat { from { transform:translate(0,0); } to { transform:translate(25px,18px); } }
+@keyframes bookFloat { from { transform:translateY(0) rotate(-1deg); } to { transform:translateY(-10px) rotate(1deg); } }
+@keyframes ticker { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .wrap { padding: 0 20px; }
+  .hero { padding: 100px 20px 80px; }
+  .compare-wrap { grid-template-columns: 1fr; }
+  .c-divider { display: none; }
+  .task-grid { grid-template-columns: 1fr; }
+  .gemini-grid, .pick-grid { grid-template-columns: 1fr; }
+  .ai-summary { grid-template-columns: 1fr; }
+  .guide-hero { grid-template-columns: 1fr; padding: 60px 20px 48px; }
+  .book-mockup { display: none; }
+  .guide-stats-inner { grid-template-columns: repeat(2,1fr); gap: 20px; }
+  .gs-cell { border-right: none !important; }
+  .guide-included-inner { grid-template-columns: 1fr; }
+  .guide-chapters { padding: 48px 20px; }
+  .chapter-row { grid-template-columns: 40px 1fr; }
+  .chapter-pages { display: none; }
+  .mistakes-stats { grid-template-columns: 1fr; }
+  .insight-bar { grid-template-columns: 1fr; }
+  .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+  .guide-topbar { padding: 12px 20px; }
+  .modal-box { padding: 32px 24px; }
+}
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div class="noise"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-brand">AI <span>Mastery</span></div>
+  <div class="nav-links">
+    <a href="#sec1">Claude vs ChatGPT</a>
+    <a href="#sec2">Task Routing</a>
+    <a href="#sec3">Claude vs Gemini</a>
+    <a href="#sec4">Mistakes</a>
+    <a href="#sec5">Mastery Guide</a>
+    <a href="#sec5" class="nav-cta" onclick="openModal();return false;">Get Free Guide</a>
+  </div>
+  <div class="hamburger" id="ham" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu" style="position:fixed;top:64px;left:0;right:0;background:rgba(9,8,6,0.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:190;padding:20px;display:none;flex-direction:column;gap:4px;">
+  <a href="#sec1" onclick="closeMenu()" style="padding:14px 16px;font-size:14px;font-weight:500;color:var(--text2);text-decoration:none;border-radius:8px;display:block;">Claude vs ChatGPT</a>
+  <a href="#sec2" onclick="closeMenu()" style="padding:14px 16px;font-size:14px;font-weight:500;color:var(--text2);text-decoration:none;border-radius:8px;display:block;">Task Routing</a>
+  <a href="#sec3" onclick="closeMenu()" style="padding:14px 16px;font-size:14px;font-weight:500;color:var(--text2);text-decoration:none;border-radius:8px;display:block;">Claude vs Gemini</a>
+  <a href="#sec4" onclick="closeMenu()" style="padding:14px 16px;font-size:14px;font-weight:500;color:var(--text2);text-decoration:none;border-radius:8px;display:block;">AI Mistakes</a>
+  <a href="#sec5" onclick="closeMenu();openModal()" style="margin-top:8px;padding:14px 16px;font-size:14px;font-weight:800;color:#fff;text-decoration:none;border-radius:8px;display:block;background:var(--coral);text-align:center;letter-spacing:0.06em;text-transform:uppercase;">Get Free Guide →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-glow hero-glow-1"></div>
+  <div class="hero-glow hero-glow-2"></div>
+  <div class="hero-glow hero-glow-3"></div>
+  <div class="hero-inner">
+    <div class="hero-chip"><span class="nav-dot"></span> The Definitive AI Comparison Guide · 2025</div>
+    <h1 class="hero-title">
+      <span class="coral">Claude</span>
+      <span class="vs">vs</span>
+      <span class="green">ChatGPT</span>
+      <span class="vs">vs</span>
+      <em style="color:#9B6FC0;">Gemini</em>
+    </h1>
+    <p class="hero-sub">
+      Most people use every AI the <strong>exact same way</strong>.<br>
+      That's costing them results, time, and massive untapped potential.
+    </p>
+    <div class="hero-actions">
+      <a href="#sec1" class="btn-p">Explore the Guide</a>
+      <a href="#" class="btn-g" onclick="openModal('hero');return false;">Get 2,000 Prompts Free →</a>
+    </div>
+    <div class="hero-tags">
+      <span class="hero-tag tag-coral">Claude — The Thinker</span>
+      <span class="hero-tag tag-green">ChatGPT — The Executor</span>
+      <span class="hero-tag tag-purple">Gemini — The Connector</span>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-bar"></div>Scroll</div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="ticker-dot"></span> Claude for depth & reasoning</span>
+    <span class="ticker-item"><span class="ticker-dot"></span> ChatGPT for speed & volume</span>
+    <span class="ticker-item"><span class="ticker-dot"></span> Gemini for live data & Google</span>
+    <span class="ticker-item"><span class="ticker-dot"></span> 2,000+ curated prompts</span>
+    <span class="ticker-item"><span class="ticker-dot"></span> Task routing matrix</span>
+    <span class="ticker-item"><span class="ticker-dot"></span> Prompt architecture frameworks</span>
+    <span class="ticker-item"><span class="ticker-dot"></span> Different AI · Different approach</span>
+    <span class="ticker-item"><span class="ticker-dot"></span> Way better results</span>
+    <span class="ticker-item"><span class="ticker-dot"></span> Claude for depth & reasoning</span>
+    <span class="ticker-item"><span class="ticker-dot"></span> ChatGPT for speed & volume</span>
+    <span class="ticker-item"><span class="ticker-dot"></span> Gemini for live data & Google</span>
+    <span class="ticker-item"><span class="ticker-dot"></span> 2,000+ curated prompts</span>
+    <span class="ticker-item"><span class="ticker-dot"></span> Task routing matrix</span>
+    <span class="ticker-item"><span class="ticker-dot"></span> Prompt architecture frameworks</span>
+    <span class="ticker-item"><span class="ticker-dot"></span> Different AI · Different approach</span>
+    <span class="ticker-item"><span class="ticker-dot"></span> Way better results</span>
+  </div>
+</div>
+<hr class="divider">
+
+<!-- ═══ SECTION 1: CLAUDE VS CHATGPT ═══ -->
+<section id="sec1">
+  <div class="wrap" style="padding-top:110px;padding-bottom:110px;">
+    <div class="section-head reveal">
+      <div class="section-eyebrow"><div class="eyebrow-line"></div> Section 01 of 04</div>
+      <h2 class="section-title">Claude <em>vs</em> ChatGPT</h2>
+      <p class="section-desc">Built for completely different things — yet 90% of users treat them identically. Here's the real difference.</p>
+    </div>
+    <div class="compare-wrap reveal d2">
+      <div class="c-card coral">
+        <div class="c-glow"></div>
+        <div class="c-header">
+          <div class="c-icon coral">
+            <svg width="22" height="22" viewBox="0 0 28 28" fill="none"><path d="M14 4L14 24M4 14L24 14M6.34 6.34L21.66 21.66M21.66 6.34L6.34 21.66" stroke="#E96B4A" stroke-width="2.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="c-name">Claude</div>
+        </div>
+        <span class="hero-tag tag-coral" style="margin-bottom:26px;display:inline-flex;">The Thinking Model</span>
+        <div>
+          <div class="fi"><div class="fi-dot coral"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#E96B4A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="fi-title">Deeper Reasoning</div><div class="fi-desc">Handles layered, multi-step problems with nuance and rigor that other models miss</div></div></div>
+          <div class="fi"><div class="fi-dot coral"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#E96B4A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="fi-title">Context Mastery</div><div class="fi-desc">Understands tone, brand voice, and complex instructions with pinpoint precision</div></div></div>
+          <div class="fi"><div class="fi-dot coral"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#E96B4A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="fi-title">Structured Outputs</div><div class="fi-desc">Long-form, strategic, well-organized content built for coherence and depth</div></div></div>
+          <div class="fi"><div class="fi-dot coral"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#E96B4A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="fi-title">Ethical & Principled</div><div class="fi-desc">Thoughtful, honest, consistent responses calibrated for real-world trust</div></div></div>
+        </div>
+        <div class="best-box coral"><div class="best-label coral">Best For</div><div class="best-text">Strategy · Analysis · Long-form Writing · Complex Reasoning · Code Architecture</div></div>
+      </div>
+      <div class="c-divider"></div>
+      <div class="c-card green">
+        <div class="c-glow"></div>
+        <div class="c-header">
+          <div class="c-icon green">
+            <svg width="22" height="22" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="11" stroke="#10B981" stroke-width="2"/><path d="M9 14a5 5 0 0 1 10 0" stroke="#10B981" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="c-name">ChatGPT</div>
+        </div>
+        <span class="hero-tag tag-green" style="margin-bottom:26px;display:inline-flex;">The Execution Model</span>
+        <div>
+          <div class="fi"><div class="fi-dot green"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#10B981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="fi-title">Fast & Versatile</div><div class="fi-desc">Rapid-fire tasks, quick ideation, broad coverage across nearly every domain</div></div></div>
+          <div class="fi"><div class="fi-dot green"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#10B981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="fi-title">Simple Prompts Work</div><div class="fi-desc">Quick answers, clean summaries, and polished first drafts at conversational speed</div></div></div>
+          <div class="fi"><div class="fi-dot green"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#10B981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="fi-title">Brainstorming Machine</div><div class="fi-desc">Lists, angles, hooks, variations — volume and velocity when you need options fast</div></div></div>
+          <div class="fi"><div class="fi-dot green"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#10B981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="fi-title">Everyday Workhorse</div><div class="fi-desc">Handles the full range of routine tasks quickly, cleanly, reliably</div></div></div>
+        </div>
+        <div class="best-box green"><div class="best-label green">Best For</div><div class="best-text">Speed · Ideas · Quick Outputs · Brainstorming · Day-to-Day Execution</div></div>
+      </div>
+    </div>
+    <div class="insight-bar reveal d3">
+      <div class="ib-cell">
+        <div class="ib-icon" style="background:rgba(239,68,68,0.1);border:1.5px solid rgba(239,68,68,0.3);">
+          <svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="#EF4444" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <div><div class="ib-label" style="color:#EF4444;">The Mistake</div><div class="ib-text">Using Claude like ChatGPT = average results. Using ChatGPT for strategy = shallow thinking. Same input, wrong tool.</div></div>
+      </div>
+      <div style="width:1px;background:var(--border);"></div>
+      <div class="ib-cell">
+        <div class="ib-icon" style="background:var(--green-dim);border:1.5px solid var(--green-border);">
+          <svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div><div class="ib-label" style="color:var(--green);">The Shift</div><div class="ib-text">ChatGPT for speed. Claude for depth. <strong style="color:var(--text);">Different AI. Different approach. Way better results.</strong></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ SECTION 2: TASK CHEATSHEET ═══ -->
+<section id="sec2" style="padding:110px 0;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow"><div class="eyebrow-line"></div> Section 02 of 04</div>
+      <h2 class="section-title">Which AI for <em>which task</em></h2>
+      <p class="section-desc">Stop guessing. Every task has an optimal model. This is your routing guide — know which AI to open before you type a single word.</p>
+    </div>
+    <div class="task-grid" id="taskGrid"></div>
+    <div class="ai-summary reveal" style="margin-top:32px;">
+      <div class="ai-sum-cell">
+        <div class="ai-sum-name" style="color:var(--coral);">Claude</div>
+        <div class="ai-sum-tag">Depth · Writing · Reasoning</div>
+        <div class="ai-sum-wins" style="color:var(--coral);">5<span>/10</span></div>
+        <div class="ai-sum-item"><span class="ai-sum-dot" style="background:var(--coral);"></span>Strategy & analysis</div>
+        <div class="ai-sum-item"><span class="ai-sum-dot" style="background:var(--coral);"></span>Long-form content</div>
+        <div class="ai-sum-item"><span class="ai-sum-dot" style="background:var(--coral);"></span>Complex code</div>
+        <div class="ai-sum-item"><span class="ai-sum-dot" style="background:var(--coral);"></span>Legal & ethical tasks</div>
+      </div>
+      <div class="ai-sum-cell">
+        <div class="ai-sum-name" style="color:var(--green);">ChatGPT</div>
+        <div class="ai-sum-tag">Speed · Volume · Ideas</div>
+        <div class="ai-sum-wins" style="color:var(--green);">3<span>/10</span></div>
+        <div class="ai-sum-item"><span class="ai-sum-dot" style="background:var(--green);"></span>Rapid brainstorming</div>
+        <div class="ai-sum-item"><span class="ai-sum-dot" style="background:var(--green);"></span>Quick summaries</div>
+        <div class="ai-sum-item"><span class="ai-sum-dot" style="background:var(--green);"></span>Ad copy variations</div>
+        <div class="ai-sum-item"><span class="ai-sum-dot" style="background:var(--green);"></span>Casual conversation</div>
+      </div>
+      <div class="ai-sum-cell">
+        <div class="ai-sum-name" style="color:#9B6FC0;">Gemini</div>
+        <div class="ai-sum-tag">Live Data · Multimedia</div>
+        <div class="ai-sum-wins" style="color:#9B6FC0;">2<span>/10</span></div>
+        <div class="ai-sum-item"><span class="ai-sum-dot" style="background:#9B6FC0;"></span>Real-time research</div>
+        <div class="ai-sum-item"><span class="ai-sum-dot" style="background:#9B6FC0;"></span>YouTube summaries</div>
+        <div class="ai-sum-item"><span class="ai-sum-dot" style="background:#9B6FC0;"></span>Google Workspace</div>
+        <div class="ai-sum-item"><span class="ai-sum-dot" style="background:#9B6FC0;"></span>Multimodal inputs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ SECTION 3: CLAUDE VS GEMINI ═══ -->
+<section id="sec3" style="padding:110px 0;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow"><div class="eyebrow-line"></div> Section 03 of 04</div>
+      <h2 class="section-title">Claude <em>vs</em> Gemini</h2>
+      <p class="section-desc">Google's multimodal powerhouse meets Anthropic's reasoning-first model. Which one belongs in your workflow — and when?</p>
+    </div>
+    <div class="gemini-grid reveal d2">
+      <div class="gem-card blue">
+        <div class="gem-name" style="color:var(--text);">Claude</div>
+        <div class="gem-sub" style="color:#4A7FD4;">Anthropic's flagship reasoning model</div>
+        <div class="gem-trait"><div class="gem-trait-dot" style="background:#4A7FD4;"></div>Constitutional AI trained</div>
+        <div class="gem-trait"><div class="gem-trait-dot" style="background:#4A7FD4;"></div>Long-context mastery (200K+ tokens)</div>
+        <div class="gem-trait"><div class="gem-trait-dot" style="background:#4A7FD4;"></div>Principled, consistent outputs</div>
+        <div class="gem-trait"><div class="gem-trait-dot" style="background:#4A7FD4;"></div>Nuanced writing & deep analysis</div>
+        <div class="gem-verdict blue">Use when precision, ethics, and depth matter more than breadth or ecosystem integration.</div>
+      </div>
+      <div class="gem-card purple">
+        <div class="gem-name" style="color:var(--text);">Gemini</div>
+        <div class="gem-sub" style="color:#9B6FC0;">Google's multimodal, ecosystem-connected model</div>
+        <div class="gem-trait"><div class="gem-trait-dot" style="background:#9B6FC0;"></div>Native Google Workspace sync</div>
+        <div class="gem-trait"><div class="gem-trait-dot" style="background:#9B6FC0;"></div>Real-time web access built-in</div>
+        <div class="gem-trait"><div class="gem-trait-dot" style="background:#9B6FC0;"></div>Image, audio & video input</div>
+        <div class="gem-trait"><div class="gem-trait-dot" style="background:#9B6FC0;"></div>Broad task coverage & speed</div>
+        <div class="gem-verdict purple">Use when you need live data, Google integration, or multimedia tasks at scale.</div>
+      </div>
+    </div>
+    <div style="overflow-x:auto;margin-top:28px;" class="reveal d3">
+      <table class="compare-table">
+        <thead class="ct-thead">
+          <tr>
+            <th class="ct-th" style="width:30%">Task Type</th>
+            <th class="ct-th" style="width:35%">Claude</th>
+            <th class="ct-th">Gemini</th>
+          </tr>
+        </thead>
+        <tbody id="geminiTableBody"></tbody>
+      </table>
+    </div>
+    <div class="pick-grid reveal d4">
+      <div class="pick-card">
+        <div class="pick-title" style="color:#4A7FD4;">Pick Claude when…</div>
+        <div class="pick-item"><div class="pick-check" style="background:rgba(74,127,212,0.12);border:1px solid rgba(74,127,212,0.3);"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="#4A7FD4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Writing needs nuance & brand voice</div>
+        <div class="pick-item"><div class="pick-check" style="background:rgba(74,127,212,0.12);border:1px solid rgba(74,127,212,0.3);"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="#4A7FD4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Complex multi-step reasoning required</div>
+        <div class="pick-item"><div class="pick-check" style="background:rgba(74,127,212,0.12);border:1px solid rgba(74,127,212,0.3);"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="#4A7FD4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>You need reliable, ethical outputs</div>
+        <div class="pick-item"><div class="pick-check" style="background:rgba(74,127,212,0.12);border:1px solid rgba(74,127,212,0.3);"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="#4A7FD4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Long documents or deep analysis</div>
+      </div>
+      <div class="pick-card">
+        <div class="pick-title" style="color:#9B6FC0;">Pick Gemini when…</div>
+        <div class="pick-item"><div class="pick-check" style="background:rgba(123,63,160,0.12);border:1px solid rgba(123,63,160,0.3);"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="#9B6FC0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>You live in Google Workspace</div>
+        <div class="pick-item"><div class="pick-check" style="background:rgba(123,63,160,0.12);border:1px solid rgba(123,63,160,0.3);"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="#9B6FC0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Real-time data matters for the task</div>
+        <div class="pick-item"><div class="pick-check" style="background:rgba(123,63,160,0.12);border:1px solid rgba(123,63,160,0.3);"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="#9B6FC0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Multimedia inputs (images, video, audio)</div>
+        <div class="pick-item"><div class="pick-check" style="background:rgba(123,63,160,0.12);border:1px solid rgba(123,63,160,0.3);"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="#9B6FC0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Quick, broad task coverage needed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ SECTION 4: AI MISTAKES ═══ -->
+<section id="sec4" style="padding:110px 0;background:var(--cream);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow" style="color:#888;"><div class="eyebrow-line"></div> Section 04 of 04</div>
+      <h2 class="section-title" style="color:#0D0C0A;">Stop Using AI <em style="color:#FF3D5A;">Wrong.</em></h2>
+      <p class="section-desc" style="color:#666;">6 mistakes making your AI outputs average — and exactly how to fix each one.</p>
+    </div>
+    <div class="mistakes-list reveal d2" id="mistakesList"></div>
+    <div class="mistakes-stats reveal d3">
+      <div class="mstat"><div class="mstat-num">6</div><div class="mstat-label">Costly mistakes most AI users make every single day</div></div>
+      <div class="mstat"><div class="mstat-num">3×</div><div class="mstat-label">Better results when matching the right model to the task</div></div>
+      <div class="mstat"><div class="mstat-num">60%</div><div class="mstat-label">Output quality boost from proper iteration and context</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ SECTION 5: MASTERY GUIDE ═══ -->
+<section id="sec5" style="padding-top:0;">
+  <div class="guide-topbar">🎁 <strong>FREE</strong> — Enter your email below to get instant access to the full 243-page guide</div>
+  <div class="guide-hero reveal">
+    <div>
+      <div class="guide-eyebrow"><div class="guide-eyebrow-dot"></div><div class="guide-eyebrow-text">AI Mastery Series — Vol. 1</div></div>
+      <h2 class="guide-h1">The Claude<br><em>Mastery</em> Guide</h2>
+      <p class="guide-desc">The complete system for getting extraordinary results from Claude — including 2,000 ready-to-use prompts, a task routing matrix, and workflow templates for every role.</p>
+      <div class="guide-btns">
+        <a href="#" class="guide-btn-p" onclick="openModal('guide');return false;">Get Free Access Now →</a>
+        <a href="#" class="guide-btn-s" onclick="document.getElementById('guide-chapters').scrollIntoView({behavior:'smooth'});return false;">Preview Contents ↓</a>
+      </div>
+    </div>
+    <div class="book-mockup">
+      <div class="book-spine"></div>
+      <div class="book-top-line"></div>
+      <svg width="38" height="38" viewBox="0 0 36 36" fill="none"><path d="M18 4L18 32M4 18L32 18M6.8 6.8L29.2 29.2M29.2 6.8L6.8 29.2" stroke="#E96B4A" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <div class="book-title">Claude<br><em>Mastery</em></div>
+      <div class="book-sub">Guide Vol. 1</div>
+      <div class="book-bottom">2,000+ Prompts</div>
+    </div>
+  </div>
+
+  <div class="guide-stats">
+    <div class="guide-stats-inner">
+      <div class="gs-cell"><div class="gs-num">2,000+</div><div class="gs-label">Ready-to-use prompts</div></div>
+      <div class="gs-cell"><div class="gs-num">5</div><div class="gs-label">Comprehensive chapters</div></div>
+      <div class="gs-cell"><div class="gs-num">243</div><div class="gs-label">Pages of frameworks</div></div>
+      <div class="gs-cell"><div class="gs-num">40+</div><div class="gs-label">Use case task matrix</div></div>
+    </div>
+  </div>
+
+  <div class="guide-chapters reveal" id="guide-chapters">
+    <div class="chapters-head">
+      <h3 class="chapters-title">What's inside</h3>
+      <div class="chapters-rule"></div>
+    </div>
+    <div id="chaptersList"></div>
+  </div>
+
+  <div class="guide-included">
+    <div class="guide-included-inner">
+      <div class="reveal">
+        <div class="included-title">Everything included</div>
+        <div id="includedList"></div>
+      </div>
+      <div class="reveal d2">
+        <div class="testi-wrap" id="testiWrap"></div>
+        <div class="testi-dots" id="testiDots"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-cta reveal">
+    <h3 class="guide-cta-h">Ready to use AI properly?</h3>
+    <p class="guide-cta-sub">Enter your email below. I'll send you the full guide, completely free.</p>
+    <a href="#" class="btn-p" onclick="openModal('cta');return false;">Get Free Access Now</a>
+    <div class="guide-cta-rule">
+      <div class="guide-cta-rule-line"></div>
+      <div class="guide-cta-rule-text">Claude Mastery Guide · AI Mastery Series</div>
+      <div class="guide-cta-rule-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">AI <span>Mastery</span></div>
+    <div class="footer-links">
+      <a href="#sec1">Claude vs ChatGPT</a>
+      <a href="#sec2">Task Routing</a>
+      <a href="#sec3">Claude vs Gemini</a>
+      <a href="#sec4">AI Mistakes</a>
+      <a href="#sec5">Mastery Guide</a>
+    </div>
+    <div class="footer-copy">© 2025 AI Mastery · Different AI · Different Approach</div>
+  </div>
+</footer>
+
+<!-- ═══ MODAL — FORMSPREE POWERED ═══ -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <div class="modal-close" onclick="closeModal()">✕</div>
+
+    <!-- Form view -->
+    <div id="modal-form-view">
+      <div style="margin-bottom:20px;">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M18 4L18 32M4 18L32 18M6.8 6.8L29.2 29.2M29.2 6.8L6.8 29.2" stroke="#E96B4A" stroke-width="2.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="modal-title">Get the Claude Mastery Guide</div>
+      <p class="modal-desc">Enter your email and I'll send you the full 2,000-prompt guide + task routing matrix — completely free.</p>
+      <input type="text" class="modal-input" placeholder="Your first name" id="modal-name" autocomplete="given-name">
+      <input type="email" class="modal-input" placeholder="Your email address" id="modal-email" autocomplete="email">
+      <div class="modal-error" id="modal-error">Please enter a valid email address.</div>
+      <button class="modal-submit" id="modal-submit-btn" onclick="submitForm()">Send Me the Free Guide →</button>
+      <p class="modal-note">No spam. Unsubscribe anytime. 100% free.</p>
+    </div>
+
+    <!-- Success view -->
+    <div class="modal-success" id="modal-success-view">
+      <div class="modal-success-icon">🎉</div>
+      <div class="modal-success-title">Guide On Its Way!</div>
+      <p class="modal-success-text">Check your inbox in the next few minutes. The full 243-page Claude Mastery Guide + 2,000 prompts are headed to you now.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ─── FORMSPREE CONFIG ───────────────────────────────────────────
+   IMPORTANT: Replace 'YOUR_FORM_ID' with your real Formspree ID.
+   Steps:
+   1. Go to https://formspree.io/
+   2. Sign up free (no credit card)
+   3. Create New Form → name it "AI Mastery Guide"
+   4. Copy your form endpoint ID (looks like: xpwzabcd)
+   5. Replace YOUR_FORM_ID below
+─────────────────────────────────────────────────────────────────── */
+const FORMSPREE_ID = 'YOUR_FORM_ID'; // e.g. 'xpwzabcd'
+const FORMSPREE_URL = `https://formspree.io/f/${FORMSPREE_ID}`;
+
+/* ─── DATA ─── */
+const tasks = [
+  { task:"Write a business strategy", winner:"Claude", why:"Structured, multi-layer reasoning", icon:"🧠", score:{claude:97,chatgpt:72,gemini:68} },
+  { task:"Generate 20 ad variations", winner:"ChatGPT", why:"Volume + creative velocity", icon:"⚡", score:{claude:70,chatgpt:96,gemini:88} },
+  { task:"Analyze a 40-page PDF", winner:"Claude", why:"Long-context champion", icon:"📄", score:{claude:98,chatgpt:74,gemini:78} },
+  { task:"Search today's news", winner:"Gemini", why:"Native real-time web access", icon:"🌐", score:{claude:42,chatgpt:65,gemini:97} },
+  { task:"Write clean Python code", winner:"Claude", why:"Clear reasoning & explanations", icon:"💻", score:{claude:94,chatgpt:88,gemini:82} },
+  { task:"Brainstorm product names", winner:"ChatGPT", why:"Rapid ideation, no overthinking", icon:"💡", score:{claude:78,chatgpt:95,gemini:85} },
+  { task:"Draft a legal summary", winner:"Claude", why:"Precise, nuanced, consistent", icon:"⚖️", score:{claude:96,chatgpt:75,gemini:70} },
+  { task:"Summarize a YouTube video", winner:"Gemini", why:"Native multimodal pipeline", icon:"🎥", score:{claude:60,chatgpt:68,gemini:96} },
+  { task:"Write a long essay / report", winner:"Claude", why:"Depth, voice, structure mastery", icon:"✍️", score:{claude:98,chatgpt:80,gemini:75} },
+  { task:"Quick Q&A, casual chat", winner:"ChatGPT", why:"Fast, breezy, conversational", icon:"💬", score:{claude:82,chatgpt:95,gemini:88} },
+];
+const winnerClasses = { Claude:"tw-coral", ChatGPT:"tw-green", Gemini:"tw-purple" };
+const barColors = { claude:"var(--coral)", chatgpt:"var(--green)", gemini:"#9B6FC0" };
+
+const geminiRows = [
+  {label:"Long-form writing", claude:"Exceptional — consistent voice, structure", gemini:"Solid — good range, less depth"},
+  {label:"Code generation", claude:"Strong reasoning, thorough explanations", gemini:"Fast, broad language support"},
+  {label:"Live web search", claude:"Limited (via tools)", gemini:"Native, real-time integration"},
+  {label:"Google Docs/Drive", claude:"External workflow needed", gemini:"Native sync, seamless"},
+  {label:"Ethics & refusals", claude:"Highly principled, consistent", gemini:"More permissive, flexible"},
+  {label:"Image analysis", claude:"Strong reading & interpretation", gemini:"Native multimodal, broader"},
+  {label:"Complex reasoning", claude:"Best-in-class chain-of-thought", gemini:"Good, but less structured"},
+];
+
+const mistakes = [
+  { no:"01", wrong:'Asking AI to "write my marketing copy"', right:"Give it your brand voice doc, 3 examples, target audience + ONE specific output to write", gain:"3× better copy in half the time", tag:"Prompting", color:"#FF3D5A" },
+  { no:"02", wrong:"Using one AI for everything", right:"Claude for strategy & long-form. ChatGPT for volume & speed. Gemini for live research.", gain:"Right tool = right result", tag:"Workflow", color:"#00D4FF" },
+  { no:"03", wrong:"Accepting the first output", right:'Iterate: "Make this punchier", "Rewrite in a more authoritative tone", "Cut by 40%"', gain:"Output quality jumps 60%", tag:"Editing", color:"#FFB800" },
+  { no:"04", wrong:"Treating AI like Google Search", right:"AI needs CONTEXT. Add your situation, goal, constraints — not just a keyword", gain:"From generic to specific", tag:"Context", color:"#9B59FF" },
+  { no:"05", wrong:"No system prompt for recurring tasks", right:"Build a saved prompt template with persona, goals & rules for every repeated workflow", gain:"Consistent results every time", tag:"Systems", color:"#00FF94" },
+  { no:"06", wrong:"Writing short, vague prompts", right:"Long, detailed prompts outperform short ones. More context = more accuracy every time.", gain:"More detail = better output", tag:"Prompting", color:"#FF3D5A" },
+];
+
+const chapters = [
+  { no:"I", title:"How Claude Actually Thinks", desc:"The mental model behind Claude's reasoning engine — and why it changes everything about how you prompt.", pages:"14 pages", icon:"🧠" },
+  { no:"II", title:"The Routing System", desc:"When to use Claude, ChatGPT, or Gemini. A task-by-task decision matrix for 40+ use cases.", pages:"22 pages", icon:"🔀" },
+  { no:"III", title:"Prompt Architecture", desc:"The anatomy of a perfect prompt. How to structure context, constraints, and output format for maximum accuracy.", pages:"31 pages", icon:"🏗️" },
+  { no:"IV", title:"2,000 Ready-to-Use Prompts", desc:"Organized by role: marketer, writer, developer, strategist, founder. Copy, paste, adapt.", pages:"148 pages", icon:"📚" },
+  { no:"V", title:"Workflow Automation", desc:"Build repeatable AI pipelines that run in the background — from content calendars to research workflows.", pages:"28 pages", icon:"⚙️" },
+];
+
+const included = ["2,000+ AI Prompts (organized by role & task)","Task Routing Matrix (40+ use cases)","Prompt Architecture Framework","5 Workflow Templates","Claude vs ChatGPT vs Gemini Deep Dive","Weekly prompt update newsletter"];
+
+const testimonials = [
+  { quote:"Cut my content creation time from 8 hours to 45 minutes per week. These prompts are insane.", name:"Sarah K.", role:"Brand Strategist" },
+  { quote:"The routing matrix alone was worth it. I was using Claude for everything — totally wrong.", name:"Marcus T.", role:"Growth Marketer" },
+  { quote:"Finally understand why my AI outputs were mediocre. Within 2 days I was getting 10× better results.", name:"Priya R.", role:"Startup Founder" },
+];
+
+/* ─── BUILD TASK CARDS ─── */
+const grid = document.getElementById('taskGrid');
+tasks.forEach((t, i) => {
+  const card = document.createElement('div');
+  card.className = 'task-card reveal';
+  card.style.transitionDelay = (i * 0.06) + 's';
+  card.innerHTML = `
+    <div class="task-card-top">
+      <div>
+        <div class="task-icon">${t.icon}</div>
+        <div class="task-name">${t.task}</div>
+        <div class="task-why">${t.why}</div>
+      </div>
+      <span class="task-winner ${winnerClasses[t.winner]}">USE ${t.winner.toUpperCase()}</span>
+    </div>
+    <div class="bar-row">
+      ${['claude','chatgpt','gemini'].map(k => `
+        <div class="bar-line">
+          <div class="bar-meta">
+            <span class="bar-label">${k.toUpperCase()}</span>
+            <span class="bar-val" style="color:${barColors[k]};">${t.score[k]}</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:0%;background:${barColors[k]};" data-w="${t.score[k]}"></div></div>
+        </div>`).join('')}
+    </div>`;
+  grid.appendChild(card);
+});
+
+/* ─── BUILD GEMINI TABLE ─── */
+const tbody = document.getElementById('geminiTableBody');
+geminiRows.forEach(r => {
+  const tr = document.createElement('tr');
+  tr.className = 'ct-row';
+  tr.innerHTML = `<td class="ct-td ct-task">${r.label}</td><td class="ct-td"><span class="ct-arrow-b">→</span>${r.claude}</td><td class="ct-td"><span class="ct-arrow-p">→</span>${r.gemini}</td>`;
+  tbody.appendChild(tr);
+});
+
+/* ─── BUILD MISTAKES ─── */
+const mList = document.getElementById('mistakesList');
+mistakes.forEach((m, i) => {
+  const el = document.createElement('div');
+  el.className = 'mistake-item reveal';
+  el.style.transitionDelay = (i * 0.07) + 's';
+  el.style.position = 'relative';
+  el.innerHTML = `
+    <div class="mistake-accentline" style="background:${m.color};"></div>
+    <div class="mistake-head" onclick="toggleMistake(${i})">
+      <div class="mistake-no">${m.no}</div>
+      <div style="flex:1;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+          <span class="mistake-wrong">${m.wrong}</span>
+          <span class="mistake-tagbadge" style="background:${m.color}20;color:${m.color};border:1px solid ${m.color}40;">${m.tag}</span>
+        </div>
+        <div class="mistake-hint">Tap to reveal the fix →</div>
+      </div>
+    </div>
+    <div class="mistake-body">
+      <div class="mistake-fix-row">
+        <div class="mistake-fix-icon" style="background:${m.color}20;"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="mistake-fix-text"><strong>Do this instead: </strong>${m.right}</div>
+      </div>
+      <div class="mistake-gain" style="background:${m.color}15;border:1px solid ${m.color}30;">
+        <span style="font-size:14px;">📈</span>
+        <span style="font-size:12px;font-weight:700;color:${m.color};font-family:'Syne',sans-serif;letter-spacing:0.04em;">${m.gain}</span>
+      </div>
+    </div>`;
+  mList.appendChild(el);
+});
+
+/* ─── BUILD CHAPTERS ─── */
+const cList = document.getElementById('chaptersList');
+chapters.forEach((c, i) => {
+  const row = document.createElement('div');
+  row.className = 'chapter-row reveal';
+  row.style.transitionDelay = (0.1 + i * 0.1) + 's';
+  row.innerHTML = `
+    <div class="chapter-num">${c.no}</div>
+    <div>
+      <div class="chapter-icon-title"><span style="font-size:20px;">${c.icon}</span><span class="chapter-title">${c.title}</span></div>
+      <p class="chapter-desc">${c.desc}</p>
+    </div>
+    <div class="chapter-pages">${c.pages}</div>`;
+  cList.appendChild(row);
+});
+
+/* ─── BUILD INCLUDED ─── */
+const incList = document.getElementById('includedList');
+included.forEach(item => {
+  const d = document.createElement('div');
+  d.className = 'included-item';
+  d.innerHTML = `<div class="included-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#E96B4A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="included-text">${item}</span>`;
+  incList.appendChild(d);
+});
+
+/* ─── BUILD TESTIMONIALS ─── */
+let tIdx = 0;
+const tWrap = document.getElementById('testiWrap');
+const tDots = document.getElementById('testiDots');
+testimonials.forEach((t, i) => {
+  const card = document.createElement('div');
+  card.className = 'testi-card' + (i === 0 ? ' active' : '');
+  card.id = 'testi-' + i;
+  card.innerHTML = `<div class="testi-quote-mark">"</div><p class="testi-text">${t.quote}</p><div><div class="testi-name">${t.name}</div><div class="testi-role">${t.role}</div></div>`;
+  tWrap.appendChild(card);
+  const dot = document.createElement('div');
+  dot.className = 'testi-dot' + (i === 0 ? ' active' : '');
+  dot.style.width = i === 0 ? '24px' : '6px';
+  dot.onclick = () => setTesti(i);
+  tDots.appendChild(dot);
+});
+function setTesti(idx) {
+  document.getElementById('testi-' + tIdx).classList.remove('active');
+  document.querySelectorAll('.testi-dot')[tIdx].classList.remove('active');
+  document.querySelectorAll('.testi-dot')[tIdx].style.width = '6px';
+  tIdx = idx;
+  document.getElementById('testi-' + tIdx).classList.add('active');
+  document.querySelectorAll('.testi-dot')[tIdx].classList.add('active');
+  document.querySelectorAll('.testi-dot')[tIdx].style.width = '24px';
+}
+setInterval(() => setTesti((tIdx + 1) % testimonials.length), 4200);
+
+/* ─── PARTICLES ─── */
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let W, H, pts = [];
+function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+resize(); addEventListener('resize', resize);
+class P {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * W; this.y = Math.random() * H;
+    this.r = Math.random() * 1.1 + 0.2;
+    this.vx = (Math.random() - 0.5) * 0.25; this.vy = (Math.random() - 0.5) * 0.25;
+    this.life = 0; this.max = Math.random() * 180 + 80;
+    const t = Math.random();
+    this.col = t < 0.5 ? `rgba(233,107,74,${Math.random()*0.55+0.1})` : t < 0.75 ? `rgba(16,185,129,${Math.random()*0.35+0.05})` : `rgba(123,63,160,${Math.random()*0.3+0.04})`;
+  }
+  tick() { this.x += this.vx; this.y += this.vy; this.life++; if (this.life > this.max || this.x<0||this.x>W||this.y<0||this.y>H) this.reset(); }
+  draw() { const a = Math.sin((this.life / this.max) * Math.PI); ctx.save(); ctx.globalAlpha = a * 0.7; ctx.fillStyle = this.col; ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI*2); ctx.fill(); ctx.restore(); }
+}
+for (let i=0;i<90;i++) pts.push(new P());
+function drawLines() {
+  for (let i=0;i<pts.length;i++) for (let j=i+1;j<pts.length;j++) {
+    const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
+    if (d<90) { ctx.save(); ctx.globalAlpha=(1-d/90)*0.06; ctx.strokeStyle='#E96B4A'; ctx.lineWidth=0.4; ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y); ctx.stroke(); ctx.restore(); }
+  }
+}
+function anim() { ctx.clearRect(0,0,W,H); drawLines(); pts.forEach(p=>{p.tick();p.draw();}); requestAnimationFrame(anim); }
+anim();
+
+/* ─── SCROLL REVEAL ─── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      e.target.querySelectorAll('.bar-fill').forEach(b => {
+        setTimeout(() => { b.style.width = b.dataset.w + '%'; }, 200);
+      });
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+/* ─── NAV SCROLL ─── */
+addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', scrollY > 60);
+});
+
+/* ─── TILT ─── */
+document.querySelectorAll('.c-card,.task-card,.gem-card,.pick-card').forEach(el => {
+  el.addEventListener('mousemove', e => {
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    el.style.transform = `perspective(900px) rotateX(${-y*4}deg) rotateY(${x*4}deg) translateY(-3px)`;
+  });
+  el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+});
+
+/* ─── MISTAKES TOGGLE ─── */
+function toggleMistake(i) {
+  const items = document.querySelectorAll('.mistake-item');
+  items.forEach((item, idx) => {
+    if (idx === i) item.classList.toggle('active');
+    else item.classList.remove('active');
+  });
+}
+
+/* ─── MOBILE MENU ─── */
+function toggleMenu() { const m = document.getElementById('mobile-menu'); m.style.display = m.style.display === 'flex' ? 'none' : 'flex'; }
+function closeMenu() { document.getElementById('mobile-menu').style.display = 'none'; }
+
+/* ─── MODAL ─── */
+function openModal(source) {
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // Reset to form view
+  document.getElementById('modal-form-view').style.display = 'block';
+  document.getElementById('modal-success-view').style.display = 'none';
+  // Track where the modal was opened from
+  if (source) trackEvent('modal_open', { source: source });
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal')) closeModal();
+});
+
+/* ─── FORMSPREE SUBMISSION ─── */
+async function submitForm() {
+  const name = document.getElementById('modal-name').value.trim();
+  const email = document.getElementById('modal-email').value.trim();
+  const errEl = document.getElementById('modal-error');
+  const btn = document.getElementById('modal-submit-btn');
+
+  // Validate
+  errEl.style.display = 'none';
+  if (!email || !email.includes('@') || !email.includes('.')) {
+    errEl.textContent = 'Please enter a valid email address.';
+    errEl.style.display = 'block';
+    document.getElementById('modal-email').style.borderColor = 'var(--red)';
+    return;
+  }
+
+  // Loading state
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    const res = await fetch(FORMSPREE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ name, email, _subject: 'New Claude Mastery Guide Request' })
+    });
+
+    if (res.ok) {
+      // Success
+      document.getElementById('modal-form-view').style.display = 'none';
+      document.getElementById('modal-success-view').style.display = 'block';
+      trackEvent('guide_signup', { method: 'email', name: name ? 'provided' : 'skipped' });
+      setTimeout(closeModal, 4000);
+    } else {
+      throw new Error('Server error');
+    }
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = 'Send Me the Free Guide →';
+    errEl.textContent = 'Something went wrong. Please try again.';
+    errEl.style.display = 'block';
+  }
+}
+
+/* ─── COUNTER ANIMATION ─── */
+const statsObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll('.gs-num').forEach(el => {
+      const raw = el.textContent;
+      let target, suffix = '';
+      if (raw.includes('+')) { target = parseInt(raw); suffix = '+'; }
+      else { target = parseInt(raw.replace(/,/g, '')); }
+      let start = 0;
+      const step = ts => {
+        if (!start) start = ts;
+        const p = Math.min((ts - start) / 1600, 1), ease = 1 - Math.pow(1 - p, 3);
+        const cur = Math.round(ease * target);
+        el.textContent = (cur >= 1000 ? cur.toLocaleString() : cur) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+    statsObs.unobserve(e.target);
+  });
+}, { threshold: 0.5 });
+const statsEl = document.querySelector('.guide-stats');
+if (statsEl) statsObs.observe(statsEl);
+
+/* ─── ACTIVE NAV SCROLL SPY ─── */
+const sections = document.querySelectorAll('section[id]');
+const navAs = document.querySelectorAll('.nav-links a[href^="#"]');
+const spyObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navAs.forEach(a => {
+        a.style.color = '';
+        if (a.getAttribute('href') === '#' + e.target.id) a.style.color = 'var(--coral)';
+      });
+    }
+  });
+}, { threshold: 0.35 });
+sections.forEach(s => spyObs.observe(s));
+
+/* ─── SMOOTH SCROLL ─── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+
+/* ─── KEYBOARD ESC ─── */
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* ─── PROGRESS BAR ─── */
+const prog = document.createElement('div');
+prog.style.cssText = 'position:fixed;top:0;left:0;height:2px;background:linear-gradient(to right,var(--coral),#C4572D);z-index:999;transition:width 0.1s;width:0%;pointer-events:none;';
+document.body.appendChild(prog);
+addEventListener('scroll', () => {
+  prog.style.width = (scrollY / (document.body.scrollHeight - innerHeight) * 100) + '%';
+});
+
+/* ─── BACK TO TOP ─── */
+const btt = document.createElement('button');
+btt.innerHTML = '↑';
+btt.style.cssText = 'position:fixed;bottom:32px;right:32px;width:44px;height:44px;border-radius:50%;background:var(--coral);color:#fff;border:none;font-size:18px;cursor:pointer;box-shadow:0 4px 20px rgba(233,107,74,0.4);z-index:150;opacity:0;transform:translateY(10px);transition:opacity 0.3s,transform 0.3s;font-weight:700;';
+btt.title = 'Back to top';
+btt.onclick = () => scrollTo({ top: 0, behavior: 'smooth' });
+document.body.appendChild(btt);
+addEventListener('scroll', () => {
+  const show = scrollY > 400;
+  btt.style.opacity = show ? '1' : '0';
+  btt.style.transform = show ? 'translateY(0)' : 'translateY(10px)';
+  btt.style.pointerEvents = show ? 'auto' : 'none';
+});
+</script>
+</body>
+</html>
